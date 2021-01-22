@@ -1,0 +1,27 @@
+人脸识别：send 客户端发送，receive 客户端接受服务端的消息
+
+send:=> 1001  {"Task":"FaceDetection","Op":"prepare","CaptureID":10,"CapturePath":"/usr/local/tnkhxt/tmp/tmp5447557840596578523.jpg","ModelPath":"/usr/local/tnkhxt/res/unit_8_8/rm_10/blb/8_10_15348_1/data.npy","PicturePath":"","SourceFile":""}
+khpad.js?1fc6:314 receive--->1001  {"CaptureID":10,"Task":"FaceDetection","error":"","op":"prepare","result":"ok"}
+khpad.js?1fc6:291 send:=> 1002  {"Task":"FaceDetection","Op":"start","CaptureID":10,"Duration":120,"CapturePath":"/usr/local/tnkhxt/tmp/tmp5447557840596578523.jpg","ModelPath":"/usr/local/tnkhxt/res/unit_8_8/rm_10/blb/8_10_15348_1/data.npy","PicturePath":"","SourceFile":""}
+khpad.js?1fc6:314 receive--->1002  {"CaptureID":10,"Task":"FaceDetection","error":"","filename":"59_54_46_tmp9760465893826172995","op":"start","result":"ok"}
+khpad.js?1fc6:291 send:=> 1003  {"Task":"FaceDetection","Op":"stop","CaptureID":10}
+khpad.js?1fc6:314 receive--->1003  {"CaptureID":10,"Task":"FaceDetection","error":"stop Action Task error","op":"stop","result":"error"}
+khpad.js?1fc6:291 send:=> 1004  {"Task":"FaceDetection","Op":"stop","CaptureID":10}
+
+考核过程：  俯卧撑 
+khpad.js?1fc6:291 send:=> 2001  {"Task":"pushup","Op":"prepare","CaptureID":2,"CapturePath":"rtsp://admin:123456@192.168.1.102:554/mpeg4cif","ModelPath":"/usr/local/tnkhxt/files/video/202101201905_12_2515_YS.mp4","Duration":122,"Fps":20,"Level":5}
+khpad.js?1fc6:314 receive--->2001  {"CaptureID":2,"Task":"pushup","error":"","op":"prepare","result":"ok"}
+khpad.js?1fc6:291 send:=> 2002  {"Task":"pushup","Op":"start","CaptureID":2}
+khpad.js?1fc6:314 receive--->2002  {"CaptureID":2,"Task":"pushup","error":"","op":"start","result":"ok"}
+khpad.js?1fc6:314 receive--->2222  {"status": [0], "total": 1, "count": 1, "time": [3.0, 4.5], "msg": ""}
+khpad.js?1fc6:314 receive--->2222  {"status": [0], "total": 2, "count": 2, "time": [6.5, 7.8], "msg": ""}
+khpad.js?1fc6:314 receive--->2222  {"status": [311], "total": 3, "count": 2, "time": [10.2, 11.4], "msg": ""}
+khpad.js?1fc6:314 receive--->2222  {"status": [0], "total": 4, "count": 3, "time": [14.7, 15.8], "msg": ""}
+khpad.js?1fc6:314 receive--->2222  {"status": [-3], "total": 4, "count": 3, "time": [0.0, 0.0], "msg": "stopped due to unallowed motion"}
+khpad.js?1fc6:291 send:=> 2003  {"Task":"pushup","Op":"stop","CaptureID":2}
+khpad.js?1fc6:314 receive--->2222  {"status": [-3], "total": 4, "count": 3, "time": [0.0, 0.0], "msg": "stopped due to unallowed motion"}
+khpad.js?1fc6:314 receive--->2222  {"status": [-3], "total": 4, "count": 3, "time": [0.0, 0.0], "msg": "stopped due to unallowed motion"}
+khpad.js?1fc6:314 receive--->2222  {"status": [-3], "total": 4, "count": 3, "time": [0.0, 0.0], "msg": "stopped due to unallowed motion"}
+khpad.js?1fc6:314 receive--->2222  {"status": [-3], "total": 4, "count": 3, "time": [0.0, 0.0], "msg": "stopped due to unallowed motion"}
+khpad.js?1fc6:314 receive--->2003  {"CaptureID":2,"Task":"pushup","error":"","op":"stop","result":"ok"}
+khpad.js?1fc6:291 send:=> 2004  {"Task":"pushup","Op":"stop","CaptureID":2}

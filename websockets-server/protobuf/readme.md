@@ -1,0 +1,1 @@
+protubuf 实际上就是将网络传入的字节做成python json的一种结构体
