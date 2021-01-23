@@ -3,6 +3,7 @@ sys.path.append("../src")
 from config import _WEB_SOCKET_PROTOCOL
 import Utils
 import Face_PoseCall
+import asyncio
 class LogicProtocol:
     '''
     Logic构造函数中初始化FaceAlgorithm子类，子类中初始化FaceBaseInit父类中的模型。
@@ -10,13 +11,15 @@ class LogicProtocol:
     def __init__(self):
         self.Face_algorithm = Face_PoseCall.FaceAlgorithm()
         self.Pose_algorithm = Face_PoseCall.PoseAlgorithm()
-
-    def AnalysisProtocol(self,recvMsg):
+    def __await__(self):
+        yield
+    async def AnalysisProtocol(self,recvMsg):
         '''
         该函数包括了对接受信息的处理
         返回即将要发送的数据包
         '''
         _ID, _LENDATA, _DICT_Str = Utils.decode_uppack(recvMsg)
+        print("server:客户端发送的数据已经解析完毕:",_ID, _LENDATA, _DICT_Str)
         #人脸识别信令解析
         if _ID == 1001:
             algoresults = self.Face_algorithm.Face_detect_Prepare1001(_DICT_Str)
@@ -35,7 +38,8 @@ class LogicProtocol:
             return _PACK_DATA
         elif _ID ==1004:
             algoresults = self.Face_algorithm.Face_detect_cutdown1004(_DICT_Str)
-            _PACK_DATA = None
+            sendId = 0
+            _PACK_DATA = Utils.pack(sendId,algoresults)
             return _PACK_DATA
         #人体姿态信令解析
         elif _ID ==2001:
@@ -59,10 +63,11 @@ class LogicProtocol:
             return _PACK_DATA
         elif _ID ==2004:
             algoresults = self.Pose_algorithm.Pose_Assessment_cutdown2004(_DICT_Str)
-            _PACK_DATA = None
+            sendId = 0
+            _PACK_DATA = Utils.pack(sendId,algoresults)
             return _PACK_DATA
         
-    def Connect_Error(self,idx):
+    async def Connect_Error(self,idx):
         '''
         该函数用于主动发送消息打包
         '''

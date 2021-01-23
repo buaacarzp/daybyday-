@@ -7,6 +7,14 @@ from logic import LogicProtocol
 '''
 如何将Logic仅仅初始化一次
 '''
+async def LogicdueRecvmsg(web_socket):
+    msg = await web_socket.recv()
+    msgsend = await Logic.AnalysisProtocol(msg) #error
+    
+    # print(type(msgsend))
+    return msgsend
+    
+
 async def recv_msg(web_socket):
     msg = await web_socket.recv()
     _ID, _LENDATA, _DICT_Str = Utils.decode_uppack(msg)
@@ -17,17 +25,21 @@ async def send_msg(web_socket,msg):
     pid:id
     msg:dict
     '''
-    pid = PROTOCOL["PROTOCOL2"]['send1']['id']
-    dictcode = PROTOCOL["PROTOCOL2"]['send1']['JSON']
-    msg = Utils.pack(pid,dictcode)
+    # pid = PROTOCOL["PROTOCOL2"]['send1']['id']
+    # dictcode = PROTOCOL["PROTOCOL2"]['send1']['JSON']
+    # msg = Utils.pack(pid,dictcode)
     await web_socket.send(msg)
 
 async def _Debug(msg):
     print(msg)
 
 async def main_logic(web_socket,path):
-    await recv_msg(web_socket)
-    await send_msg(web_socket,None)
+    while True:
+        msg = await LogicdueRecvmsg(web_socket)
+        if msg:#阻塞的
+            await send_msg(web_socket,msg) 
+        else:
+            print("服务端待发送数据异常!")
 
 def pre_parsers(parser):
     parser.add_argument('-ip','--ip',type=str,help="input the ip address!")#,action="store_false")
