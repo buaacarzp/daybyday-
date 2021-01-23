@@ -10,8 +10,6 @@ from logic import LogicProtocol
 async def LogicdueRecvmsg(web_socket):
     msg = await web_socket.recv()
     msgsend = await Logic.AnalysisProtocol(msg) #error
-    
-    # print(type(msgsend))
     return msgsend
     
 
@@ -35,12 +33,15 @@ async def _Debug(msg):
 
 async def main_logic(web_socket,path):
     while True:
+        # try:
         msg = await LogicdueRecvmsg(web_socket)
         if msg:#阻塞的
             await send_msg(web_socket,msg) 
         else:
             print("服务端待发送数据异常!")
-
+        # except websockets.exceptions.ConnectionClosedOK :
+        #     # print("code 10000")
+        #     ...
 def pre_parsers(parser):
     parser.add_argument('-ip','--ip',type=str,help="input the ip address!")#,action="store_false")
     parser.add_argument('-port','--port',type=str,help="inputs the ip port!")#,action="store_false")

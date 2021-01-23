@@ -23,7 +23,7 @@ async def main_logic(ip):
             print(idx) #1002报文客户端发出去了，服务端没有将while将消息一直接收导致的
             await recv_msg(websocket)
 if __name__ =="__main__":
-    ip = 'ws://192.168.1.107:8080'
+    ip = 'ws://192.168.1.100:8080'
     PROTOCOL = config._WEB_SOCKET_PROTOCOL
     sendmsg =[[PROTOCOL["PROTOCOL2"]["receive"]['id'],PROTOCOL["PROTOCOL2"]["receive"]['JSON']],
                 [PROTOCOL["PROTOCOL3"]["receive"]['id'],PROTOCOL["PROTOCOL3"]["receive"]['JSON']],
@@ -36,4 +36,4 @@ if __name__ =="__main__":
                 ]
     loop = asyncio.get_event_loop()
     loop.run_until_complete(main_logic(ip))
-    loop.run_forever()
+    # loop.run_forever()

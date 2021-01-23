@@ -1,0 +1,16 @@
+ERROR:root:Unable to save E:\18_LearnOpencv\testsubprocess\Focus-removebg\img\my.jpg_no_bg.png due to insufficient credits
+background change fail :Traceback (most recent call last):
+  File "D:\Anaconda\lib\site-packages\PIL\JpegImagePlugin.py", line 619, in _save
+    rawmode = RAWMODE[im.mode]
+KeyError: 'RGBA'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "RemoveBG_Color.py", line 51, in <module>
+    p.save('./out/ans.jpg')
+  File "D:\Anaconda\lib\site-packages\PIL\Image.py", line 2084, in save
+    save_handler(self, fp, filename)
+  File "D:\Anaconda\lib\site-packages\PIL\JpegImagePlugin.py", line 621, in _save
+    raise IOError("cannot write mode %s as JPEG" % im.mode)
+OSError: cannot write mode RGBA as JPEG

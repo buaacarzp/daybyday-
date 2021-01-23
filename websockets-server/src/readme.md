@@ -23,3 +23,17 @@ Traceback (most recent call last):
     raise self.connection_closed_exc()
 websockets.exceptions.ConnectionClosedOK: code = 1000 (OK), no reason
 ```
+结果：查看源码后发现这是正常的现象，因为返回的是closedOk code =1000，成功捕获异常后发现CPU反而占用资源更多：
+```
+async def main_logic(web_socket,path):
+    while True:
+        # try:
+        msg = await LogicdueRecvmsg(web_socket)
+        if msg:#阻塞的
+            await send_msg(web_socket,msg) 
+        else:
+            print("服务端待发送数据异常!")
+        # except websockets.exceptions.ConnectionClosedOK :
+        #     # print("code 10000")
+        #     ...
+```
