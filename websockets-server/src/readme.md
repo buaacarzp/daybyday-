@@ -37,3 +37,4 @@ async def main_logic(web_socket,path):
         #     # print("code 10000")
         #     ...
 ```
+4.多线程测试完毕，思路是将在多个线程中创建websockets，详见gaobingfademo.py
