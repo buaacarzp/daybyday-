@@ -44,7 +44,7 @@ async def main_logic(web_socket,path):
         #     ...
 def pre_parsers(parser):
     parser.add_argument('-ip','--ip',type=str,help="input the ip address!")#,action="store_false")
-    parser.add_argument('-port','--port',type=str,help="inputs the ip port!")#,action="store_false")
+    parser.add_argument('-port','--port',type=str,help="input the ip port!")#,action="store_false")
     args = parser.parse_args()
     assert (args.ip is not None and args.port is not None) , "\nError:Please input the ip and port!"
     return args.ip,args.port

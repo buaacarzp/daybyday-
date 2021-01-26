@@ -5,7 +5,7 @@ import Utils
 import argparse
 from logic import LogicProtocol 
 import sys 
-sys.path.append("/home/jp/daybyday-/websockets-server/easytrtpost/")
+sys.path.append("E://19_websocket/daybyday-/websockets-server/easytrtpost")
 # print
 print(sys.path)
 import time
@@ -69,32 +69,22 @@ def pre_parsers(parser):
     args = parser.parse_args()
     assert (args.ip is not None and args.port is not None) , "\nError:Please input the ip and port!"
     return args.ip,args.port
-
-parser = argparse.ArgumentParser(description="Websockets start ")
-IP,PORT = pre_parsers(parser)
-PROTOCOL = config._WEB_SOCKET_PROTOCOL
-start_server = websockets.serve(main_logic, IP,PORT) #不需要加ws
-file_name,difficulty_level,frameNum,outputFile,deviceId='0000.mp4', '5', '10000', 'dfl.mp4', '0'
-# file_name = sys.argv[1]
-# difficulty_level = sys.argv[2]
-# frameNum = sys.argv[3]
-# outputFile = sys.argv[4]
-# deviceId = int(sys.argv[5])
-iii = time.time()
-cPushup = CNvPushup(file_name, difficulty_level, frameNum, outputFile, deviceId)
-cPushup.init()
-cPushup.start()
-while not cPushup.isTailed():
-    cparam = cPushup.processAction()
-yyy = time.time()
-# encode.encode_frames(cPushup.param_dict['video'], file_name, 20)
-logger.info("{} {}", cPushup.param_dict['count'], cPushup.param_dict['count_including_wrong'])
-logger.info("{}", cPushup.param_dict['total_list'])
-
-cPushup.releaseSelf()
-
-print("NOTE: websocket server is runing...")
-Logic = LogicProtocol() #服务一开始就开始初始化模型
-
-asyncio.get_event_loop().run_until_complete(start_server)
-asyncio.get_event_loop().run_forever()
+if __name__=="__main__":
+    parser = argparse.ArgumentParser(description="Websockets start ")
+    IP,PORT = pre_parsers(parser)
+    PROTOCOL = config._WEB_SOCKET_PROTOCOL
+    start_server = websockets.serve(main_logic, IP,PORT) #不需要加ws
+    file_name,difficulty_level,frameNum,outputFile,deviceId='0000.mp4', '5', '10000', 'dfl.mp4', '0'
+    cPushup = CNvPushup(file_name, difficulty_level, frameNum, outputFile, deviceId)
+    # cPushup.init()
+    # cPushup.start()
+    # while not cPushup.isTailed():
+    #     cparam = cPushup.processAction()
+    # encode.encode_frames(cPushup.param_dict['video'], file_name, 20)
+    print("NOTE: websocket server is runing...")
+    Logic = LogicProtocol(cPushup) #服务一开始就开始初始化模型
+    # cPushup.releaseSelf()
+    # logger.info("{} {}", cPushup.param_dict['count'], cPushup.param_dict['count_including_wrong'])
+    # logger.info("{}", cPushup.param_dict['total_list'])
+    asyncio.get_event_loop().run_until_complete(start_server)
+    asyncio.get_event_loop().run_forever()

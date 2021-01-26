@@ -8,9 +8,9 @@ class LogicProtocol:
     '''
     Logic构造函数中初始化FaceAlgorithm子类，子类中初始化FaceBaseInit父类中的模型。
     '''
-    def __init__(self):
+    def __init__(self,cPushup=None,cOverHang=None,cSitup=None,cPullup=None,cSnakeRun=None):
         self.Face_algorithm = Face_PoseCall.FaceAlgorithm()
-        self.Pose_algorithm = Face_PoseCall.PoseAlgorithm()
+        self.Pose_algorithm = Face_PoseCall.PoseAlgorithm(cPushup)#目前保留一个
     def __await__(self):
         yield
     async def AnalysisProtocol(self,recvMsg):

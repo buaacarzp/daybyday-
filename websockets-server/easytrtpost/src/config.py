@@ -89,6 +89,7 @@ _WEB_SOCKET_PROTOCOL ={
         }
 
     },
+    #姿态识别
     "PROTOCOL6":{
         "receive":{
             "description":"考核（姿态估计）准备信令协议数据包(2001)",
