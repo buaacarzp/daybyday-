@@ -25,11 +25,11 @@ async def main_logic(ip):
 if __name__ =="__main__":
     ip = 'ws://192.168.1.111:8080'
     PROTOCOL = config._WEB_SOCKET_PROTOCOL
-    sendmsg =[[PROTOCOL["PROTOCOL2"]["receive"]['id'],PROTOCOL["PROTOCOL2"]["receive"]['JSON']],
-                [PROTOCOL["PROTOCOL3"]["receive"]['id'],PROTOCOL["PROTOCOL3"]["receive"]['JSON']],
-                [PROTOCOL["PROTOCOL4"]["receive"]['id'],PROTOCOL["PROTOCOL4"]["receive"]['JSON']],
-                [PROTOCOL["PROTOCOL5"]["receive"]['id'],PROTOCOL["PROTOCOL5"]["receive"]['JSON']],
-                [PROTOCOL["PROTOCOL6"]["receive"]['id'],PROTOCOL["PROTOCOL6"]["receive"]['JSON']],
+    # sendmsg =#[[PROTOCOL["PROTOCOL2"]["receive"]['id'],PROTOCOL["PROTOCOL2"]["receive"]['JSON']],
+                #[PROTOCOL["PROTOCOL3"]["receive"]['id'],PROTOCOL["PROTOCOL3"]["receive"]['JSON']],
+                #[PROTOCOL["PROTOCOL4"]["receive"]['id'],PROTOCOL["PROTOCOL4"]["receive"]['JSON']],
+                #[PROTOCOL["PROTOCOL5"]["receive"]['id'],PROTOCOL["PROTOCOL5"]["receive"]['JSON']],
+    sendmsg =   [[PROTOCOL["PROTOCOL6"]["receive"]['id'],PROTOCOL["PROTOCOL6"]["receive"]['JSON']],
                 [PROTOCOL["PROTOCOL7"]["receive"]['id'],PROTOCOL["PROTOCOL7"]["receive"]['JSON']],
                 [PROTOCOL["PROTOCOL8"]["receive"]['id'],PROTOCOL["PROTOCOL8"]["receive"]['JSON']],
                 [PROTOCOL["PROTOCOL9"]["receive"]['id'],PROTOCOL["PROTOCOL9"]["receive"]['JSON']]

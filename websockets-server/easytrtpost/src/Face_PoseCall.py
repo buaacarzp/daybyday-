@@ -60,6 +60,7 @@ class PoseAlgorithm(object):
         input: dict
         output: dict
         '''
+        
         print("prepare步骤已经在init构造方法中完成")
         return {}
     def Pose_Assessment_start2002(self,recv_dict):

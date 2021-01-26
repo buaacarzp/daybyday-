@@ -70,10 +70,10 @@ class BaseType:
         try:
             # 对于视频文件，必须保证从producer创建/read开始到start的这段时间，没有其他耗时操作，防止读取完时队列还没开始存入。
             self.tpose = TPose()
-            self.prod = Producer(self.derived_class_name, self.rtsp, self.outputfile)
-            self.preconsumer = PreConsumer(self, 4)
+            # self.prod = Producer(self.derived_class_name, self.rtsp, self.outputfile)
+            # self.preconsumer = PreConsumer(self, 4)
 
-            self.param_dict = self.init_param()
+            # self.param_dict = self.init_param()
             bRet = 1
         except Exception as e:
             logger.error(e)
@@ -197,6 +197,11 @@ class BaseType:
         """
         bRet = 0
         try:
+            self.prod = Producer(self.derived_class_name, self.rtsp, self.outputfile)
+            self.preconsumer = PreConsumer(self, 4)
+
+            self.param_dict = self.init_param()
+
             self.prod.start(int(self.total_frame_num))
             bRet = 1
         except Exception as e:

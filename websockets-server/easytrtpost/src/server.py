@@ -5,7 +5,7 @@ import Utils
 import argparse
 from logic import LogicProtocol 
 import sys 
-sys.path.append("E://19_websocket/daybyday-/websockets-server/easytrtpost")
+sys.path.append("/home/jp/daybyday-/websockets-server/easytrtpost")
 # print
 print(sys.path)
 import time
@@ -74,7 +74,7 @@ if __name__=="__main__":
     IP,PORT = pre_parsers(parser)
     PROTOCOL = config._WEB_SOCKET_PROTOCOL
     start_server = websockets.serve(main_logic, IP,PORT) #不需要加ws
-    file_name,difficulty_level,frameNum,outputFile,deviceId='0000.mp4', '5', '10000', 'dfl.mp4', '0'
+    file_name,difficulty_level,frameNum,outputFile,deviceId='rtsp://admin:123456@192.168.1.102:554/mpeg4cif', '5', '200', 'dfl.mp4', '0'
     cPushup = CNvPushup(file_name, difficulty_level, frameNum, outputFile, deviceId)
     # cPushup.init()
     # cPushup.start()
@@ -88,3 +88,4 @@ if __name__=="__main__":
     # logger.info("{}", cPushup.param_dict['total_list'])
     asyncio.get_event_loop().run_until_complete(start_server)
     asyncio.get_event_loop().run_forever()
+    # rtsp://admin:123456@192.168.1.102:554/mpeg4cif
