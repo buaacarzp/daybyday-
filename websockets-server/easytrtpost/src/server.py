@@ -6,8 +6,7 @@ import argparse
 from logic import LogicProtocol 
 import sys 
 sys.path.append("/home/jp/daybyday-/websockets-server/easytrtpost")
-# print
-print(sys.path)
+# print(sys.path)
 import time
 from loguru import logger
 import copy
@@ -24,7 +23,7 @@ from draw_utils import *
 from basetype import BaseType
 import encode
 
-from pushup import *
+from pushup import CNvPushup
 '''
 如何将Logic仅仅初始化一次
 '''
@@ -54,15 +53,14 @@ async def _Debug(msg):
 
 async def main_logic(web_socket,path):
     while True:
-        # try:
-        msg = await LogicdueRecvmsg(web_socket)
-        if msg:#阻塞的
-            await send_msg(web_socket,msg) 
-        else:
-            print("服务端待发送数据异常!")
-        # except websockets.exceptions.ConnectionClosedOK :
-        #     # print("code 10000")
-        #     ...
+        try:
+            msg = await LogicdueRecvmsg(web_socket)
+            if msg:#阻塞的
+                await send_msg(web_socket,msg) 
+            else:
+                print("服务端待发送数据异常!")
+        except websockets.exceptions.ConnectionClosedOK :...
+            # print("code 10000")
 def pre_parsers(parser):
     parser.add_argument('-ip','--ip',type=str,help="input the ip address!")#,action="store_false")
     parser.add_argument('-port','--port',type=str,help="inputs the ip port!")#,action="store_false")
@@ -74,18 +72,9 @@ if __name__=="__main__":
     IP,PORT = pre_parsers(parser)
     PROTOCOL = config._WEB_SOCKET_PROTOCOL
     start_server = websockets.serve(main_logic, IP,PORT) #不需要加ws
-    file_name,difficulty_level,frameNum,outputFile,deviceId='rtsp://admin:123456@192.168.1.102:554/mpeg4cif', '5', '200', 'dfl.mp4', '0'
-    cPushup = CNvPushup(file_name, difficulty_level, frameNum, outputFile, deviceId)
-    # cPushup.init()
-    # cPushup.start()
-    # while not cPushup.isTailed():
-    #     cparam = cPushup.processAction()
-    # encode.encode_frames(cPushup.param_dict['video'], file_name, 20)
-    print("NOTE: websocket server is runing...")
+    cPushup = CNvPushup()
     Logic = LogicProtocol(cPushup) #服务一开始就开始初始化模型
-    # cPushup.releaseSelf()
-    # logger.info("{} {}", cPushup.param_dict['count'], cPushup.param_dict['count_including_wrong'])
-    # logger.info("{}", cPushup.param_dict['total_list'])
+    print("NOTE: websocket server is runing...")
     asyncio.get_event_loop().run_until_complete(start_server)
     asyncio.get_event_loop().run_forever()
     # rtsp://admin:123456@192.168.1.102:554/mpeg4cif

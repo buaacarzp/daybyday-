@@ -17,13 +17,20 @@ from loguru import logger
 
 
 class BaseType:
-    def __init__(self, rtsp="", level="", total_frame_num="", outputfile="", deviceId=0):
-        self.rtsp = str(rtsp)
-        self.level = int(level)
-        self.total_frame_num = int(total_frame_num)
-        self.outputfile = outputfile
-        self.deviceId = deviceId
-
+    # def __init__(self, rtsp="", level="", total_frame_num="", outputfile="", deviceId=0):
+    #     #想让模型加载，必须要实例化这个类，但是这样需要接收参数
+    #     self.rtsp = str(rtsp)
+    #     self.level = int(level)
+    #     self.total_frame_num = int(total_frame_num)
+    #     self.outputfile = outputfile
+    #     self.deviceId = deviceId
+    def __init__(self):
+        self.rtsp = None
+        self.level = None
+        self.total_frame_num = None
+        self.outputfile = None
+        self.deviceId = None
+        
         self.derived_class_name = self.__class__.__name__  # 子类名
         self.rel = False  # 是否已执行releaseSelf
         self.tpose = None
@@ -31,14 +38,7 @@ class BaseType:
         self.preconsumer = None  # 介于producer和consumer之间，合并4图处理
         self.param_dict = None
         self.proj_dir = os.path.expanduser("~/trt_pose/tasks/human_pose/")
-        self.ip_str = self.get_ip_str()
-        self.log_file = self.get_log_path()
-
-        logger.remove()
-        logger.add(sys.stdout, level="DEBUG", format='{time:YYYY-MM-DD HH:mm:ss} |{level}|{file}:{name}:{function}:{line}| ======== {message}', enqueue=True)
-        logger.add(self.log_file, level="INFO", format='{time:YYYY-MM-DD HH:mm:ss} |{level}|{file}:{name}:{function}:{line}| ======== {message}', enqueue=True)
-        logger.info("考核项目：{}   等级：{}    视频设备：{}    录像文件：{}",
-                    self.derived_class_name, self.level, self.ip_str, self.outputfile)
+        
 
     def get_ip_str(self):
         ip_str = re.findall("\\d+\\.\\d+\\.\\d+\\.\\d+", self.rtsp)
@@ -191,10 +191,24 @@ class BaseType:
         # print(self.param_dict['count'], self.param_dict['count_including_wrong'])
         # print(self.param_dict['total_list'])
 
-    def start(self):
+    def start(self,rtsp="", level="", total_frame_num="", outputfile="", deviceId=0):
+
         """前端手动按钮
 
         """
+        self.rtsp = str(rtsp)
+        self.level = int(level)
+        self.total_frame_num = int(total_frame_num)
+        self.outputfile = outputfile
+        self.deviceId = deviceId
+        self.ip_str = self.get_ip_str()
+        self.log_file = self.get_log_path()
+
+        logger.remove()
+        logger.add(sys.stdout, level="DEBUG", format='{time:YYYY-MM-DD HH:mm:ss} |{level}|{file}:{name}:{function}:{line}| ======== {message}', enqueue=True)
+        logger.add(self.log_file, level="INFO", format='{time:YYYY-MM-DD HH:mm:ss} |{level}|{file}:{name}:{function}:{line}| ======== {message}', enqueue=True)
+        logger.info("考核项目：{}   等级：{}    视频设备：{}    录像文件：{}",
+                    self.derived_class_name, self.level, self.ip_str, self.outputfile)
         bRet = 0
         try:
             self.prod = Producer(self.derived_class_name, self.rtsp, self.outputfile)

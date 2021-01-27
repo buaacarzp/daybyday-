@@ -52,9 +52,9 @@ class PoseAlgorithm(object):
         # PoseBaseInit.__init__(self)
         try:
             self.cPushup.init()
-            print("模型实例化完成，读取视频完成")
+            print("模型实例化完成")
         except Exception:
-            print("模型实例化或者读取视频失败")
+            print("模型实例化失败")
     def Pose_Assessment_prepare2001(self,recv_dict):
         '''
         input: dict
@@ -68,7 +68,9 @@ class PoseAlgorithm(object):
         input: dict
         output: dict
         '''
-        self.cPushup.start()
+        file_name,difficulty_level,frameNum,outputFile,deviceId='0000.mp4', '5', '200', 'dfl.mp4', '0'
+        #'rtsp://admin:123456@192.168.1.102:554/mpeg4cif', '5', '200', 'dfl.mp4', '0'
+        self.cPushup.start(file_name,difficulty_level,frameNum,outputFile,deviceId)
         
         print("已经开始取数据")
         return {}
@@ -79,6 +81,7 @@ class PoseAlgorithm(object):
         '''
         while not self.cPushup.isTailed():
             self.cparam = self.cPushup.processAction()
+            print("self.cparam=",self.cparam)
         print("处理完的结果为:",self.cPushup.param_dict['count'], self.cPushup.param_dict['count_including_wrong'])
         return {}
     def Pose_Assessment_stop2003(self,recv_dict):
