@@ -143,7 +143,7 @@ _WEB_SOCKET_PROTOCOL ={
             "other":"Task 任务类型人脸检测/姿态估计 ,op为当前执行的动作，CaptureID为采集设备ID，CapturePath:设备IP，"
         },
         "send1":{
-            "description":"考核（姿态估计）准备信令协议数据包(2001)",
+            "description":"考核（姿态估计）停止信令协议数据包(2003)",
             "id":2003,
             "information":"服务端到客户端发送",
             "JSON":{"Task":"examine1","op":"stop","result":"ok","error":"question" },

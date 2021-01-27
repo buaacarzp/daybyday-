@@ -22,8 +22,26 @@ from situp_leg_detection import get_mean_value
 from draw_utils import *
 from basetype import BaseType
 import encode
+from collections import Generator
 
 from pushup import CNvPushup
+import logging
+# logger = logging.getLogger('mylogger')
+# logger.setLevel(logging.INFO)
+# fh = logging.FileHandler('./test.log')
+# fh.setLevel(logging.INFO)
+# ch = logging.StreamHandler()
+# ch.setLevel(logging.INFO)
+# formatter = logging.Formatter("%(asctime)s,%(levelname)s,%(asctime)s,%(filename)s:%(lineno)s:%(message)s")
+# fh.setFormatter(formatter)
+# ch.setFormatter(formatter)
+# logger.addHandler(fh)
+# logger.addHandler(ch)
+# logger.info("foobar")
+logging.basicConfig(format="%(asctime)s,%(levelname)s,%(asctime)s,%(filename)s:%(lineno)s:%(message)s",
+                    filename="/home/jp/daybyday-/websockets-server/easytrtpost/src/logserver.log",filemode ="w",level=logging.DEBUG)
+#                     #level=logging.DEBUG)
+
 '''
 如何将Logic仅仅初始化一次
 '''
@@ -48,25 +66,37 @@ async def send_msg(web_socket,msg):
     # msg = Utils.pack(pid,dictcode)
     await web_socket.send(msg)
 
-async def _Debug(msg):
-    print(msg)
-
 async def main_logic(web_socket,path):
     while True:
         try:
             msg = await LogicdueRecvmsg(web_socket)
-            if msg:#阻塞的
-                await send_msg(web_socket,msg) 
+            if len(msg)>1 and isinstance(msg[1],Generator):#阻塞的
+                await send_msg(web_socket,msg[0])
+                for gen in msg[1]:
+                    # await send_msg(web_socket,gen) 
+                    await send_msg(web_socket,Utils.pack(2222,{}))#这里是模拟真实数据
             else:
-                print("服务端待发送数据异常!")
+                await send_msg(web_socket,msg)
         except websockets.exceptions.ConnectionClosedOK :...
+            
+            # logging.error(websockets.exceptions.ConnectionClosedOK)
             # print("code 10000")
+        # except Exception as e:
+        #     logging.error(e)
+        # except KeyboardInterrupt as e:
+        #     logging.info("keyboardzhou")
+        #     break
+        except :
+            logging.info("服务器发送数据异常！")
+            # raise
+            # print("服务器发送数据异常！")
 def pre_parsers(parser):
     parser.add_argument('-ip','--ip',type=str,help="input the ip address!")#,action="store_false")
     parser.add_argument('-port','--port',type=str,help="inputs the ip port!")#,action="store_false")
     args = parser.parse_args()
     assert (args.ip is not None and args.port is not None) , "\nError:Please input the ip and port!"
     return args.ip,args.port
+    
 if __name__=="__main__":
     parser = argparse.ArgumentParser(description="Websockets start ")
     IP,PORT = pre_parsers(parser)

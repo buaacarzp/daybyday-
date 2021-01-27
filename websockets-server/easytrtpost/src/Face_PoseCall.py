@@ -12,7 +12,10 @@
 #     def __init__(self):
 #         self.model = "PoseBaseInit init model "
 #         print("PoseBaseInit")
-
+import logging
+logging.basicConfig(format="%(asctime)s,%(levelname)s,%(asctime)s,%(filename)s:%(lineno)s:%(message)s",
+                    level=logging.INFO)
+                    #ilename="logserver.log",filemode ="w",level=logging.DEBUG)
 class FaceAlgorithm(object):
     '''
     Face的方法
@@ -79,10 +82,15 @@ class PoseAlgorithm(object):
         input: dict
         output: dict
         '''
+        i = 0
         while not self.cPushup.isTailed():
             self.cparam = self.cPushup.processAction()
-            print("self.cparam=",self.cparam)
-        print("处理完的结果为:",self.cPushup.param_dict['count'], self.cPushup.param_dict['count_including_wrong'])
+            # print("i={},self.cparam={}".format(i,self.cparam))
+            logging.info("i={},self.cparam={}".format(i,self.cparam))
+            i+=1
+            yield self.cparam
+            # print("self.cparam=",self.cparam)
+        # print("处理完的结果为:",self.cPushup.param_dict['count'], self.cPushup.param_dict['count_including_wrong'])
         return {}
     def Pose_Assessment_stop2003(self,recv_dict):
         '''

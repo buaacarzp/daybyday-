@@ -205,7 +205,7 @@ class BaseType:
         self.log_file = self.get_log_path()
 
         logger.remove()
-        logger.add(sys.stdout, level="DEBUG", format='{time:YYYY-MM-DD HH:mm:ss} |{level}|{file}:{name}:{function}:{line}| ======== {message}', enqueue=True)
+        logger.add(sys.stdout, level="INFO", format='{time:YYYY-MM-DD HH:mm:ss} |{level}|{file}:{name}:{function}:{line}| ======== {message}', enqueue=True)
         logger.add(self.log_file, level="INFO", format='{time:YYYY-MM-DD HH:mm:ss} |{level}|{file}:{name}:{function}:{line}| ======== {message}', enqueue=True)
         logger.info("考核项目：{}   等级：{}    视频设备：{}    录像文件：{}",
                     self.derived_class_name, self.level, self.ip_str, self.outputfile)

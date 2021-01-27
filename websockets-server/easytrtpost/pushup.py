@@ -15,7 +15,10 @@ from situp_leg_detection import get_mean_value
 from draw_utils import *
 from basetype import BaseType
 import encode
-
+import logging
+logging.basicConfig(format="%(asctime)s,%(levelname)s,%(asctime)s,%(filename)s:%(lineno)s:%(message)s",
+                    level=logging.DEBUG)
+                    #ilename="logserver.log",filemode ="w",level=logging.DEBUG)
 
 class CNvPushup(BaseType):
     # def __init__(self, rtsp_address="", level="", total_frame_num="", outputfile=""):
@@ -378,8 +381,15 @@ if __name__ == '__main__':
     mmm = time.time()
     cPushup.init()
     cPushup.start(file_name, difficulty_level, frameNum, outputFile, deviceId)
+    i = 0
     while not cPushup.isTailed():
+        # cPushup.stop()
         cparam = cPushup.processAction()
+        logging.debug(f"i={i},cparam={cparam}")
+        cPushup.stop()#实际是控制往队列里面存数据，不是让算法结束
+        i+=1
+        break
+        
     # encode.encode_frames(cPushup.param_dict['video'], file_name, 20)
     logger.info("{} {}", cPushup.param_dict['count'], cPushup.param_dict['count_including_wrong'])
     logger.info("{}", cPushup.param_dict['total_list'])
@@ -388,4 +398,4 @@ if __name__ == '__main__':
     # for i in range(len(cPushup.param_dict['state_total'])):
     #     print(cPushup.param_dict['state_total'][i][7])
     cPushup.releaseSelf()
-    print("__init__:", round(mmm-iii, 4), "\ninit:", round(sss-mmm, 4), "\nstart:", round(xxx-sss, 4), "\nwhile:", round(yyy-xxx, 4), round(ttt-sss, 4))
+    # print("__init__:", round(mmm-iii, 4), "\ninit:", round(sss-mmm, 4), "\nstart:", round(xxx-sss, 4), "\nwhile:", round(yyy-xxx, 4), round(ttt-sss, 4))

@@ -17,11 +17,22 @@ async def recv_msg(websocket):
 
 
 async def main_logic(ip):
-    async with websockets.connect(ip) as websocket:
-        for idx,jsonfile in sendmsg:
-            await send_msg(websocket,idx,jsonfile)
-            print(idx) #1002报文客户端发出去了，服务端没有将while将消息一直接收导致的
+    async with websockets.connect(ip) as websocket:  
+        #姿态考核准备  
+        await send_msg(websocket,sendmsg[0][0],sendmsg[0][1])
+        await recv_msg(websocket)
+        #姿态考核开始
+        await send_msg(websocket,sendmsg[1][0],sendmsg[1][1])
+        await recv_msg(websocket)
+        for _ in range(9):#200帧数
             await recv_msg(websocket)
+        #姿态考核停止
+        await send_msg(websocket,sendmsg[2][0],sendmsg[2][1])
+        await recv_msg(websocket)
+        #姿态考核关闭
+        await send_msg(websocket,sendmsg[3][0],sendmsg[3][1])
+        await recv_msg(websocket)
+
 if __name__ =="__main__":
     ip = 'ws://192.168.1.111:8080'
     PROTOCOL = config._WEB_SOCKET_PROTOCOL

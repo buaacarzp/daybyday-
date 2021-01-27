@@ -24,3 +24,5 @@ def Pose_Assessment_start2222(self,recv_dict):
         print("处理完的结果为:",self.cPushup.param_dict['count'], self.cPushup.param_dict['count_including_wrong'])
         return {}
 ```
+4.TUDO：姿态考核停止要能触发开始的停止，但是目前没有这么写
+5.TUDO：添加logging写入正在运行的程序

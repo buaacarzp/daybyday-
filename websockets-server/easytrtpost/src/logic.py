@@ -51,11 +51,14 @@ class LogicProtocol:
             #2002需要做特殊处理,这里的返回值有两个
             algoresults = self.Pose_algorithm.Pose_Assessment_start2002(_DICT_Str)
             sendId = 2002
-            _PACK_DATA1 = Utils.pack(sendId,algoresults)
+            _PACK_DATA = Utils.pack(sendId,algoresults)
             sendId = 2222
-            algoresults = self.Pose_algorithm.Pose_Assessment_start2222(_DICT_Str)
-            _PACK_DATA2 = Utils.pack(sendId,algoresults)
-            return _PACK_DATA1,_PACK_DATA2
+            # algoresults = self.Pose_algorithm.Pose_Assessment_start2222(_DICT_Str)
+            Generate = self.Pose_algorithm.Pose_Assessment_start2222(_DICT_Str)
+            # for gen in Generate:
+            #     _PACK_DATA2 = Utils.pack(sendId,algoresults)
+            # return _PACK_DATA1,_PACK_DATA2
+            return _PACK_DATA,Generate
         elif _ID ==2003:
             algoresults = self.Pose_algorithm.Pose_Assessment_stop2003(_DICT_Str)
             sendId = 2003
