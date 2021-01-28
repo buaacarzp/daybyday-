@@ -25,19 +25,12 @@ import encode
 from collections import Generator
 
 from pushup import CNvPushup
+from pullup import CNvPullup
+from situp import CNvSitup
+from overhang import CNvOverHang
+from snakerun import CNvSnakeRun
 import logging
-# logger = logging.getLogger('mylogger')
-# logger.setLevel(logging.INFO)
-# fh = logging.FileHandler('./test.log')
-# fh.setLevel(logging.INFO)
-# ch = logging.StreamHandler()
-# ch.setLevel(logging.INFO)
-# formatter = logging.Formatter("%(asctime)s,%(levelname)s,%(asctime)s,%(filename)s:%(lineno)s:%(message)s")
-# fh.setFormatter(formatter)
-# ch.setFormatter(formatter)
-# logger.addHandler(fh)
-# logger.addHandler(ch)
-# logger.info("foobar")
+
 logging.basicConfig(format="%(asctime)s,%(levelname)s,%(asctime)s,%(filename)s:%(lineno)s:%(message)s",
                     filename="/home/jp/daybyday-/websockets-server/easytrtpost/src/logserver.log",filemode ="w",level=logging.DEBUG)
 #                     #level=logging.DEBUG)
@@ -68,19 +61,26 @@ async def send_msg(web_socket,msg):
 
 async def main_logic(web_socket,path):
     while True:
-        try:
-            msg = await LogicdueRecvmsg(web_socket)
-            if len(msg)>1 and isinstance(msg[1],Generator):#阻塞的
-                await send_msg(web_socket,msg[0])
-                for gen in msg[1]:
-                    # await send_msg(web_socket,gen) 
-                    await send_msg(web_socket,Utils.pack(msg[2],gen))#这里是模拟真实数据
-            else:
+        # try:
+        msg = await LogicdueRecvmsg(web_socket)
+        if len(msg)==3 and isinstance(msg[2],Generator):#阻塞的
+            await send_msg(web_socket,msg[0])
+            for gen in msg[2]:
+                # await send_msg(web_socket,gen) 
+                if gen !={}:
+                    # logging.info(f"gen={gen}")
+                    await send_msg(web_socket,Utils.pack(msg[1],gen))#这里是模拟真实数据
+                
+        else:
+            print("-------->>>>>>else")
+            if msg!={}:
                 await send_msg(web_socket,msg)
-        except websockets.exceptions.ConnectionClosedOK :...
             
-        except :
-            logging.info("服务器发送数据异常！")
+
+        # except websockets.exceptions.ConnectionClosedOK :...
+            
+        # except :
+        #     logging.info("服务器发送数据异常！")
 
 def pre_parsers(parser):
     parser.add_argument('-ip','--ip',type=str,help="input the ip address!")#,action="store_false")
@@ -97,7 +97,11 @@ if __name__=="__main__":
     PROTOCOL = config._WEB_SOCKET_PROTOCOL
     start_server = websockets.serve(main_logic, IP,PORT) #不需要加ws
     cPushup = CNvPushup()
-    Logic = LogicProtocol(cPushup,DEBUG) #服务一开始就开始初始化模型
+    cPullup = CNvPullup()
+    cSitup = CNvSitup()
+    cOverhang = CNvOverHang()
+    cSnakeRun = CNvSnakeRun()
+    Logic = LogicProtocol(cPushup=cPushup,cOverHang=cOverhang,cSitup=cSitup,cPullup=cPullup,cSnakeRun=cSnakeRun,DEBUG=DEBUG) #服务一开始就开始初始化模型
     print("NOTE: websocket server is runing...")
     asyncio.get_event_loop().run_until_complete(start_server)
     asyncio.get_event_loop().run_forever()

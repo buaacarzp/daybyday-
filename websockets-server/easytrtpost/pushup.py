@@ -375,7 +375,7 @@ if __name__ == '__main__':
     # frameNum = sys.argv[3]
     # outputFile = sys.argv[4]
     # deviceId = int(sys.argv[5])
-    file_name,difficulty_level,frameNum,outputFile,deviceId='0000.mp4', '5', '200', 'dfl.mp4', '0'#'rtsp://admin:123456@192.168.1.102:554/mpeg4cif', '5', '200', 'dfl.mp4', '0'
+    file_name,difficulty_level,frameNum,outputFile,deviceId='rtsp://admin:123456@192.168.1.102:554/mpeg4cif', '5', '2000', 'dfl.mp4', '0'#'rtsp://admin:123456@192.168.1.102:554/mpeg4cif', '5', '200', 'dfl.mp4', '0'
     iii = time.time()
     cPushup = CNvPushup()
     mmm = time.time()
@@ -386,9 +386,9 @@ if __name__ == '__main__':
         # cPushup.stop()
         cparam = cPushup.processAction()
         logging.debug(f"i={i},cparam={cparam}")
-        cPushup.stop()#实际是控制往队列里面存数据，不是让算法结束
+        # cPushup.stop()#实际是控制往队列里面存数据，不是让算法结束
         i+=1
-        break
+        # break
         
     # encode.encode_frames(cPushup.param_dict['video'], file_name, 20)
     logger.info("{} {}", cPushup.param_dict['count'], cPushup.param_dict['count_including_wrong'])

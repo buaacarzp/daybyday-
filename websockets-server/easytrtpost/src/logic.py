@@ -10,7 +10,7 @@ class LogicProtocol:
     '''
     def __init__(self,cPushup=None,cOverHang=None,cSitup=None,cPullup=None,cSnakeRun=None,DEBUG=True):
         self.Face_algorithm = Face_PoseCall.FaceAlgorithm()
-        self.Pose_algorithm = Face_PoseCall.PoseAlgorithm(cPushup)#目前保留一个
+        self.Pose_algorithm = Face_PoseCall.PoseAlgorithm(cPushup=cPushup,cOverHang=cOverHang,cSitup=cSitup,cPullup=cPullup,cSnakeRun=cSnakeRun,DEBUG=DEBUG)#目前保留一个
         self.debug = DEBUG
     def __await__(self):
         yield
@@ -59,7 +59,7 @@ class LogicProtocol:
             # for gen in Generate:
             #     _PACK_DATA2 = Utils.pack(sendId,algoresults)
             # return _PACK_DATA1,_PACK_DATA2
-            return _PACK_DATA,Generate,sendId
+            return _PACK_DATA,sendId,Generate
         elif _ID ==2003:
             algoresults = self.Pose_algorithm.Pose_Assessment_stop2003(_DICT_Str,self.debug)
             sendId = 2003
@@ -67,8 +67,8 @@ class LogicProtocol:
             return _PACK_DATA
         elif _ID ==2004:
             algoresults = self.Pose_algorithm.Pose_Assessment_cutdown2004(_DICT_Str,self.debug)
-            sendId = 0
-            _PACK_DATA = Utils.pack(sendId,algoresults)
+            # _PACK_DATA = Utils.pack(sendId,algoresults)
+            _PACK_DATA = algoresults
             return _PACK_DATA
         
     async def Connect_Error(self,idx):

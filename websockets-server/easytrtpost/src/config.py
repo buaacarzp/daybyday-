@@ -102,7 +102,7 @@ _WEB_SOCKET_PROTOCOL ={
             "description":"考核（姿态估计）准备信令协议数据包(2001)",
             "id":2001,
             "information":"服务端到客户端发送",
-            "JSON":{"task":"examine1","CaptureID":"0101","op":"start","result":"ok","error":"question" },
+            "JSON":{"Task":"examine1","CaptureID":"0101","op":"prepare","result":"ok","error":"question" },
             "other":"响应"
         },#建立连接，加载模型
         "send2":{
@@ -121,14 +121,14 @@ _WEB_SOCKET_PROTOCOL ={
             "description":"考核（姿态估计）开始信令协议数据包(2002)",
             "id":2002,
             "information":"服务端到客户端发送",
-            "JSON":{"task":"examine1","CaptureID":"0101","op":"start","result":"ok","error":"question" },
+            "JSON":{"Task":"examine1","CaptureID":"0101","op":"start","result":"ok","error":"question" },
             "other":"响应"
         },
         "send2":{
             "description":"考核（姿态估计）开始信令协议数据包(2002)",
             "id":2222,
             "information":"服务端到客户端发送",
-            "JSON":{"task":"examine1","CaptureID":"0101","op":"start","result":"ok","error":"question" },
+            "JSON":{"Task":"examine1","CaptureID":"0101","op":"start","result":"ok","error":"question" },
             "other":"检测结果,status ：  状态   0 正确动作，  -1 为终止，曲臂悬垂 出现错误停止,其他为具体的错误编码。\
                     total ：累计动作数，或者曲臂悬垂的总毫秒数。 \
                     time  ：从开始到消息时刻的时长，单位为毫秒。  用于回看录像用。"
@@ -157,7 +157,7 @@ _WEB_SOCKET_PROTOCOL ={
             "description":"考核（姿态估计）关闭信令协议数据包(2004)",
             "id":2004,
             "information":"客户端向服务端发送",
-            "JSON":{"Task":"FaceDetection","CaptureID":"0101","op":"stop","CaptureID":"0101"},
+            "JSON":{"Task":"FaceDetection","CaptureID":"0101","op":"stop"},
             "other":"Task 任务类型人脸检测/姿态估计 ,op为当前执行的动作，CaptureID为采集设备ID，CapturePath:设备IP"
         },#python对象销毁掉
         "send1":{

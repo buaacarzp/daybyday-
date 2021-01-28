@@ -24,13 +24,13 @@ async def main_logic(ip):
         #姿态考核开始
         await send_msg(websocket,sendmsg[1][0],sendmsg[1][1])
         await recv_msg(websocket)
-        for _ in range(6):#6个动作
+        while 1:
             await recv_msg(websocket)
-        #姿态考核停止
-        await send_msg(websocket,sendmsg[2][0],sendmsg[2][1])
-        await recv_msg(websocket)
-        #姿态考核关闭
-        await send_msg(websocket,sendmsg[3][0],sendmsg[3][1])
+        # #姿态考核停止
+        # await send_msg(websocket,sendmsg[2][0],sendmsg[2][1])
+        # await recv_msg(websocket)
+        # #姿态考核关闭
+        # await send_msg(websocket,sendmsg[3][0],sendmsg[3][1])
         # await recv_msg(websocket)
 
 if __name__ =="__main__":
@@ -47,4 +47,4 @@ if __name__ =="__main__":
                 ]
     loop = asyncio.get_event_loop()
     loop.run_until_complete(main_logic(ip))
-    # loop.run_forever()
+    loop.run_forever()

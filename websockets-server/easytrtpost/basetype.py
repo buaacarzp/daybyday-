@@ -414,6 +414,7 @@ class Producer:
             # 一直读但不一定放入队列
             if self.isstart or "rtsp" in self.rtsp:  # rtsp流直接读，视频文件等isstart才开始读
                 ret, frame = self.cap.read()
+                
             # read += 1
             if not self.isstart:  # 未开始，不存队列，循环等待
                 continue
@@ -436,6 +437,7 @@ class Producer:
             # frame = cv2.resize(frame, (self.resize_width, self.resize_height))
             self.sp.stdin.write(frame.tostring())
             self.frame_queue.put(frame)
+            time.sleep(0.03)
             # self.write_queue.put(copy.deepcopy(frame))
             # self.write_queue.put(frame)
             logger.debug("totaltime:    {}", self.totaltime)
