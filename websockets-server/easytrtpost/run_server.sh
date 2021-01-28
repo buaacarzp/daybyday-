@@ -1,1 +1,1 @@
-python src/server.py  --ip=192.168.1.111  --port=8080
+python src/server.py  --ip=192.168.1.111  --port=8080 --debug

@@ -74,36 +74,30 @@ async def main_logic(web_socket,path):
                 await send_msg(web_socket,msg[0])
                 for gen in msg[1]:
                     # await send_msg(web_socket,gen) 
-                    await send_msg(web_socket,Utils.pack(2222,{}))#这里是模拟真实数据
+                    await send_msg(web_socket,Utils.pack(msg[2],gen))#这里是模拟真实数据
             else:
                 await send_msg(web_socket,msg)
         except websockets.exceptions.ConnectionClosedOK :...
             
-            # logging.error(websockets.exceptions.ConnectionClosedOK)
-            # print("code 10000")
-        # except Exception as e:
-        #     logging.error(e)
-        # except KeyboardInterrupt as e:
-        #     logging.info("keyboardzhou")
-        #     break
         except :
             logging.info("服务器发送数据异常！")
-            # raise
-            # print("服务器发送数据异常！")
+
 def pre_parsers(parser):
     parser.add_argument('-ip','--ip',type=str,help="input the ip address!")#,action="store_false")
     parser.add_argument('-port','--port',type=str,help="inputs the ip port!")#,action="store_false")
+    parser.add_argument('-debug','--debug',help="choose debug or release",action="store_true")
     args = parser.parse_args()
     assert (args.ip is not None and args.port is not None) , "\nError:Please input the ip and port!"
-    return args.ip,args.port
+    return args
     
 if __name__=="__main__":
     parser = argparse.ArgumentParser(description="Websockets start ")
-    IP,PORT = pre_parsers(parser)
+    args = pre_parsers(parser)
+    IP,PORT,DEBUG = args.ip,args.port,args.debug
     PROTOCOL = config._WEB_SOCKET_PROTOCOL
     start_server = websockets.serve(main_logic, IP,PORT) #不需要加ws
     cPushup = CNvPushup()
-    Logic = LogicProtocol(cPushup) #服务一开始就开始初始化模型
+    Logic = LogicProtocol(cPushup,DEBUG) #服务一开始就开始初始化模型
     print("NOTE: websocket server is runing...")
     asyncio.get_event_loop().run_until_complete(start_server)
     asyncio.get_event_loop().run_forever()

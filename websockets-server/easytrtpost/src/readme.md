@@ -9,9 +9,9 @@ cPushup = CNvPushup(file_name, difficulty_level, frameNum, outputFile, deviceId)
 
 Note:
 2021-1-27 
-1.修改了逻辑，修改basetype类
-2.添加后端正常关闭异常捕捉
-3.尝试每次返回
+1.完成修改了逻辑，修改basetype类
+2.完成添加后端正常关闭异常捕捉
+3.完成尝试每次返回
 ```
 def Pose_Assessment_start2222(self,recv_dict):
         '''
@@ -26,3 +26,6 @@ def Pose_Assessment_start2222(self,recv_dict):
 ```
 4.TUDO：姿态考核停止要能触发开始的停止，但是目前没有这么写
 5.TUDO：添加logging写入正在运行的程序
+2021-1-28
+1.完成修改了basetype返回是dict，不是json
+2.添加了debug模式，用于调试
