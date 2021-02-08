@@ -204,8 +204,10 @@ class CNvSnakeRun(BaseType):
                 if self.param_dict['end_time'] != -1:
                     self.param_dict['time_count_down'] -= 1
                     if self.param_dict['time_count_down'] <= 0:
-                        return json.dumps({'status': [-3], 'total': self.param_dict['time_current'],
-                                          'count': self.param_dict['time_current'], 'time': [0.0, 0.0], 'msg': "stopped due to unallowed motion"})  # 输出停止信息
+                        return {'status': [-3], 'total': self.param_dict['time_current'],
+                                          'count': self.param_dict['time_current'], 'time': [0.0, 0.0], 'msg': "stopped due to unallowed motion"}
+                        # return json.dumps({'status': [-3], 'total': self.param_dict['time_current'],
+                        #                   'count': self.param_dict['time_current'], 'time': [0.0, 0.0], 'msg': "stopped due to unallowed motion"})  # 输出停止信息
 
                 self.param_dict['wrong_dict'] = dict()
                 self.param_dict, frame = self.process_one_frame(self.param_dict, kp, frame)
@@ -222,16 +224,24 @@ class CNvSnakeRun(BaseType):
                     #     print("-333333333333333333333333333333333")
                     #     if not self.prod.isend:  # 前端调取
                     #         self.prod.stop()  # 违停动作返回-3
-                    return json.dumps(self.param_dict['wrong_dict'])
+                    return self.param_dict['wrong_dict']
+                    # return json.dumps(self.param_dict['wrong_dict'])
+
                 elif self.param_dict['i'] % 60 == 0:
-                    return ""
-            return json.dumps({'status': [-1], 'total': round(self.param_dict['time_current'] / self.param_dict['fps'], 1),
-                               'count': round(self.param_dict['time_current'] / self.param_dict['fps'], 1), 'time': [0.0, 0.0], 'msg': "over"})
+                    return {}
+                    # return ""
+                    
+            return {'status': [-1], 'total': round(self.param_dict['time_current'] / self.param_dict['fps'], 1),
+                               'count': round(self.param_dict['time_current'] / self.param_dict['fps'], 1), 'time': [0.0, 0.0], 'msg': "over"}
+            # return json.dumps({'status': [-1], 'total': round(self.param_dict['time_current'] / self.param_dict['fps'], 1),
+            #                    'count': round(self.param_dict['time_current'] / self.param_dict['fps'], 1), 'time': [0.0, 0.0], 'msg': "over"})
         except Exception as e:
             logger.error(e)
             # raise e
-            return json.dumps({'status': [-2], 'total': round(self.param_dict['time_current'] / self.param_dict['fps'], 1),
-                               'count': round(self.param_dict['time_current'] / self.param_dict['fps'], 1), 'time': [0.0, 0.0], 'msg': str(e)})
+            return {'status': [-2], 'total': round(self.param_dict['time_current'] / self.param_dict['fps'], 1),
+                               'count': round(self.param_dict['time_current'] / self.param_dict['fps'], 1), 'time': [0.0, 0.0], 'msg': str(e)}
+            # return json.dumps({'status': [-2], 'total': round(self.param_dict['time_current'] / self.param_dict['fps'], 1),
+            #                    'count': round(self.param_dict['time_current'] / self.param_dict['fps'], 1), 'time': [0.0, 0.0], 'msg': str(e)})
 
 
 if __name__ == '__main__':

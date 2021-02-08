@@ -432,7 +432,7 @@ class Producer:
                 break
             self.totaltime -= 1
             if self.exam_type in ["CNvPullup", "CNvOverHang"]:
-                frame = cv2.rotate(frame, rotateCode=cv2.ROTATE_90_COUNTERCLOCKWISE)
+                frame = cv2.rotate(frame, rotateCode=cv2.ROTATE_90_CLOCKWISE)
                 # frame = np.rot90(frame)
             # frame = cv2.resize(frame, (self.resize_width, self.resize_height))
             self.sp.stdin.write(frame.tostring())

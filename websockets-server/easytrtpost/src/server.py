@@ -67,9 +67,11 @@ async def main_logic(web_socket,path):
             await send_msg(web_socket,msg[0])
             for gen in msg[2]:
                 # await send_msg(web_socket,gen) 
-                if gen !={}:
+                if gen !={} :
                     # logging.info(f"gen={gen}")
                     await send_msg(web_socket,Utils.pack(msg[1],gen))#这里是模拟真实数据
+                    if gen['status'] == [-3]:
+                        break
                 
         else:
             print("-------->>>>>>else")

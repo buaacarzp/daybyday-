@@ -37,7 +37,7 @@ _WEB_SOCKET_PROTOCOL ={
             "description":"人脸识别开始信令协议数据包(1002)",
             "id":1002,
             "information":"客户端向服务端发送",
-            "JSON":{"Task":"FaceDetection","op":"start","CaptureID":"0101","duration":""},
+            "JSON":{"Task":"FaceDetection","op":"start","CaptureID":"0101","Duration":""},
             "other":"Task 任务类型人脸检测/姿态估计 ,op为当前执行的动作，CaptureID为采集设备ID，\
                     CapturePath:设备IP，duration:检测的时间（帧率25fps,40ms一帧）。"
         },   
@@ -95,8 +95,8 @@ _WEB_SOCKET_PROTOCOL ={
             "description":"考核（姿态估计）准备信令协议数据包(2001)",
             "id":2001,
             "information":"客户端向服务端发送",
-            "JSON":{"Task":"examine1","op":"prepare","CaptureID":"0101","CapturePath":"","ModelPath":"","duration":"","level":""},
-            "other":"Task 考核任务名 ,op为当前执行的动作，CaptureID为采集设备ID，CapturePath:设备IP，modelPath:模型地址,duration:检测的时间（帧率25fps,40ms一帧）,检测等级1-5默认是5"
+            "JSON":{"Task":"examine1","op":"prepare","CaptureID":"0101","CapturePath":"","ModelPath":"","Duration":"","Level":""},
+            "other":"Task 考核任务名 ,op为当前执行的动作，CaptureID为采集设备ID，CapturePath:设备IP，modelPath:模型地址,Duration:检测的时间（帧率25fps,40ms一帧）,检测等级1-5默认是5"
         },
         "send1":{
             "description":"考核（姿态估计）准备信令协议数据包(2001)",

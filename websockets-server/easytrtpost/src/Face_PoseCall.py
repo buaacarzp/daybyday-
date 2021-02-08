@@ -100,9 +100,9 @@ class PoseAlgorithm(object):
             if not mode:
                 self.Task = recv_dict["Task"]
                 self.CapturePath = recv_dict["CapturePath"]
-                self.level = recv_dict["level"]
-                self.duration = recv_dict["duration"]
-                self.outputFile = "dfl.mp4"
+                self.level = recv_dict["Level"]
+                self.duration = int(recv_dict["Duration"]*recv_dict['Fps'])
+                self.outputFile = recv_dict['ModelPath']
                 logging.info(f"prepare步骤完成：self.Task={self.Task},self.Cap={self.CapturePath},self.level={self.level},self.duration={self.duration}")
             else:
                 self.Task = 'taskderandom'

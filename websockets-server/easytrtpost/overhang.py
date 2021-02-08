@@ -333,16 +333,22 @@ class CNvOverHang(BaseType):
                 logger.debug(self.param_dict['i'])
                 self.param_dict['i'] += 1
                 if len(self.param_dict['wrong_dict']) != 0:
-                    return json.dumps(self.param_dict['wrong_dict'])
+                    # return json.dumps(self.param_dict['wrong_dict'])
+                    return self.param_dict['wrong_dict']
                 elif self.param_dict['i'] % (3*20) == 0:  # 每3s发空串，保持ws连接
-                    return ""
-            return json.dumps({'status': [-1], 'total': round(self.param_dict['time_current'] / self.param_dict['fps'], 1),
-                               'count': round(self.param_dict['time_current'] / self.param_dict['fps'], 1), 'time': [0.0, 0.0], 'msg': "over"})
+                    # return ""
+                    return {}
+            return {'status': [-1], 'total': round(self.param_dict['time_current'] / self.param_dict['fps'], 1),
+                               'count': round(self.param_dict['time_current'] / self.param_dict['fps'], 1), 'time': [0.0, 0.0], 'msg': "over"}
+            # return json.dumps({'status': [-1], 'total': round(self.param_dict['time_current'] / self.param_dict['fps'], 1),
+            #                    'count': round(self.param_dict['time_current'] / self.param_dict['fps'], 1), 'time': [0.0, 0.0], 'msg': "over"})
         except Exception as e:
             logger.error(e)
             # raise e
-            return json.dumps({'status': [-2], 'total': round(self.param_dict['time_current'] / self.param_dict['fps'], 1),
-                               'count': round(self.param_dict['time_current'] / self.param_dict['fps'], 1), 'time': [0.0, 0.0], 'msg': str(e)})
+            return {'status': [-2], 'total': round(self.param_dict['time_current'] / self.param_dict['fps'], 1),
+                               'count': round(self.param_dict['time_current'] / self.param_dict['fps'], 1), 'time': [0.0, 0.0], 'msg': str(e)}
+            # return json.dumps({'status': [-2], 'total': round(self.param_dict['time_current'] / self.param_dict['fps'], 1),
+            #                    'count': round(self.param_dict['time_current'] / self.param_dict['fps'], 1), 'time': [0.0, 0.0], 'msg': str(e)})
 
 
 if __name__ == '__main__':
